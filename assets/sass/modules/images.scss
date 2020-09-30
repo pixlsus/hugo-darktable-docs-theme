@@ -1,0 +1,17 @@
+p {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    img {
+	display: block;
+	margin: 0px auto;
+	width: 50%;
+    }
+}
+
+img[alt$='_icon'] {
+    width: 30px !important;
+}
+
+img[src$='#h50']  {
+    width: 50%;
+}
