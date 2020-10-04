@@ -1,8 +1,13 @@
 /* Override any bootstrap variables here before importing bootstrap itself */
 
+@import 'modules/variables';
+
 /* Import bootstrap's sass */
 @import 'bootstrap';
 
 /* Custom SASS imports */
+
+@import 'modules/typography';
 @import 'modules/nav';
+@import 'modules/body';
 @import 'modules/images';
