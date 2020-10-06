@@ -1,17 +1,32 @@
-p[img] {
-    margin-top: 3px;
-    margin-bottom: 3px;
-    img {
-	display: block;
-	margin: 0px auto;
-	width: 50%;
-    }
+img {
+    display: block;
+    text-align: center;
+    margin: 3px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 img[alt$='_icon'] {
     width: 30px !important;
+    display: inline;
 }
 
-img[src$='#h50']  {
-    width: 50%;
+img[src*='#inline']  {
+    display: inline;
+}
+
+img[src*='#w25']  {
+    width: 24%;
+}
+
+img[src*='#w50']  {
+    width: 48%;
+}
+
+img[src*='#w75']  {
+    width: 72%;
+}
+
+img[src*='#w100']  {
+    width: 100%;
 }
