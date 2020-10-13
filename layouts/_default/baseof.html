@@ -13,17 +13,17 @@
 
         <div class="container-fluid">
 	    <div class="row">
-		<nav class="navigation col-sm-12 col-md-4">
+		<nav class="navigation col-sm-12 col-md-3">
 		    {{ partial "nav.html" . }}
 		</nav>
-		<div class="content col-sm-12 col-md-6">
+		<div class="content col-sm-12 col-md-6 mx-auto">
 		    {{ block "main" .}}
 		    <!-- This is where the page content redners -->
 		    {{ end }}
 		</div>
 	    </div>
 
-            {{ partial "page-footer.html" . }}
+            <!-- {{ partial "page-footer.html" . }} -->
 
         </div>
 
