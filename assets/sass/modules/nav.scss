@@ -1,3 +1,15 @@
+.navigation {
+    ul {
+	padding-left: 0px;
+	list-style-type: none;
+	ul {
+	    padding-left: 20px;
+
+	}
+    }
+
+}
+
 .active {
     font-weight: bold;
 }
