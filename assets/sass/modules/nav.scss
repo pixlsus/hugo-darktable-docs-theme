@@ -1,12 +1,6 @@
 .navigation {
-    top: 4rem;
-    display: block;
-    position: sticky;
-    max-height: calc(100vh - 4rem);
-    overflow-y: auto;
-    z-index: 1000;
-
     padding-top: 1rem;
+
     ul {
 	padding-left: 0px;
 	list-style-type: none;
@@ -16,6 +10,17 @@
 	}
     }
 
+}
+
+@include media-breakpoint-up(md) {
+    .navigation {
+	top: 4rem;
+	display: block;
+	position: sticky;
+	max-height: calc(100vh - 4rem);
+	overflow-y: auto;
+	z-index: 1000;
+    }
 }
 
 .active {
