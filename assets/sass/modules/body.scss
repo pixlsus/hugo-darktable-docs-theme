@@ -18,3 +18,10 @@ body {
 .prev {
     text-align: right;
 }
+
+.crumbs {
+    margin-bottom: 0.5rem;
+    .crumb {
+	display: inline;
+    }
+}

@@ -4,6 +4,9 @@
 
 
 <article role="main">
+
+    {{ partial "breadcrumbs.html" . }}
+
     <h1 class="title">
         {{ .Title | markdownify }}
     </h1>
