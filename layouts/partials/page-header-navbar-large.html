@@ -7,13 +7,13 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav ml-auto">
 	    {{ $currentPage := . }}
             {{ range .Site.Menus.main }}
             <li class="nav-item">
-                <a class="nav-link" href="{{.URL}}">
+		<a class="nav-link" href="{{.URL}}">
 		    {{ .Pre }}
-                    <span>{{ .Name }}</span>
+		    <span>{{ .Name }}</span>
 		    <span class="sr-only">{{ i18n "current" }}</span>
 		</a>
 		{{ end }}
