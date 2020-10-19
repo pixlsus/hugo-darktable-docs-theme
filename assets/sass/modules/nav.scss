@@ -12,6 +12,10 @@
 
 }
 
+.toggle, .no-toggle {
+    width: 1rem;
+}
+
 @include media-breakpoint-up(md) {
     .navigation {
 	top: 4rem;

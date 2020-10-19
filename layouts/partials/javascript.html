@@ -30,10 +30,26 @@
 
 <script>
 
- $(".active")[0].scrollIntoView({
-     behavior: 'auto',
-     block: 'center',
+ $(document).ready(function(){
+     $('.parent ul').hide();
+     $('.toggle').on('click', function (e) {
+	 e.stopPropagation();
+	 $(this).siblings('ul').slideToggle();
 
+	 if($(this).hasClass("fa-plus-square")) {
+	     $(this).addClass("fa-minus-square-o");
+	     $(this).removeClass("fa-plus-square");
+	 }
+	 else {
+	     $(this).addClass("fa-plus-square");
+	     $(this).removeClass("fa-minus-square-o");
+	 }
+     });
+
+     $('.active').parents('ul').show();
+     $('.active').children('ul').show();
+     $('.active').children('i.toggle').removeClass("fa-plus-squre").addClass("fa-minus-square-o");
+     $('.active').parents('li').children('.toggle').removeClass("fa-plus-square").addClass("fa-minus-square-o");
  });
 
 </script>
