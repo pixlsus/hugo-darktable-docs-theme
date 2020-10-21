@@ -25,13 +25,8 @@
 {{ $current := eq .CurrentPage .Page }}
 {{ $ancestor := .Page.IsAncestor .CurrentPage }}
 
-{{ if .Page.Content }}
+
 <a href="{{ .Page.Permalink }}" class="{{ if $current }} active{{ end }}">
     {{ .Page.Title }}
 </a>
-{{ else }}
-<span>
-    {{ .Page.Title }}
-</span>
-{{ end }}
 {{ end }}
