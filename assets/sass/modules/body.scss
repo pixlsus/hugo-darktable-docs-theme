@@ -4,6 +4,10 @@ body {
 
 .content {
     padding-top: 1rem;
+    a {
+	text-decoration: underline;
+	background-color: transparent;
+    }
 }
 
 .next, .prev {
@@ -24,4 +28,8 @@ body {
     .crumb {
 	display: inline;
     }
+}
+
+a {
+    color: #444;
 }
