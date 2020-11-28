@@ -37,8 +37,16 @@ h1 {
     font-size: 2.369em;
 }
 
+h1+h2 {
+   margin-top: 0;
+}
+
 h2 {
     font-size: 1.777em;
+}
+
+h2+h3 {
+   margin-top: 0;
 }
 
 h3 {
