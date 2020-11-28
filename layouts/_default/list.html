@@ -1,8 +1,10 @@
 {{ define "main" }}
 
-<section>
+{{ partial "breadcrumbs.html" . }}
+    
+{{ partial "prev-next.html" . }}
 
-    {{ partial "breadcrumbs.html" . }}
+<section>
 
     <h1 class="title">{{ .Title }}</h1>
     <ul>

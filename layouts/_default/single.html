@@ -3,9 +3,11 @@
 {{ $dateFormat := default "Mon Jan 2, 2006" (index .Site.Params "date_format") }}
 
 
-<article role="main">
+{{ partial "breadcrumbs.html" . }}
+    
+{{ partial "prev-next.html" . }}
 
-    {{ partial "breadcrumbs.html" . }}
+<article role="main">
 
     <h1 class="title">
         {{ .Title | markdownify }}
