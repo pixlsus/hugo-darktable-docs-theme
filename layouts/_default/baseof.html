@@ -1,8 +1,9 @@
 <!doctype html>
 <html lang="{{ .Lang }}">
     <head>
-        {{ partial "head-meta.html" . }}
-	{{ partial "css.html" . }}
+      {{ partial "head-meta.html" . }}
+      {{ partial "css.html" . }}
+      {{ partial "javascript.html" . }}
     </head>
     <body>
         <!--[if lte IE 9]>
@@ -27,7 +28,8 @@
 
         </div>
 
-	{{ partial "javascript.html" . }}
 
     </body>
 </html>
+
+{{ partial "navjs.html" . }}
