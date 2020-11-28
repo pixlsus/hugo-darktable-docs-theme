@@ -4,12 +4,12 @@
     </span>
 </div>
 
-{{define "breadcrumb"}}
-{{$parent := .page.Parent }}
-{{ if $parent }}
+{{- define "breadcrumb" -}}
+{{- $parent := .page.Parent -}}
+{{- if $parent -}}
 {{ $value := (printf "<a href='%s'>%s</a> / %s" $parent.Permalink $parent.Title .value) }}
 {{ template "breadcrumb" dict "page" $parent "value" $value }}
-{{else}}
+{{- else -}}
 {{.value|safeHTML}}
-{{end}}
-{{end}}
+{{- end -}}
+{{- end -}}
