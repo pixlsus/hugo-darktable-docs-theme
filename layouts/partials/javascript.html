@@ -28,28 +28,3 @@
 {{ $javascript := slice $app | resources.Concat "/js/app.js" }}
 <script src="{{ $javascript.Permalink }}"></script>
 
-<script>
-
- $(document).ready(function(){
-     $('.parent ul').hide();
-     $('.toggle').on('click', function (e) {
-	 e.stopPropagation();
-	 $(this).siblings('ul').slideToggle();
-
-	 if($(this).hasClass("fa-plus-square")) {
-	     $(this).addClass("fa-minus-square-o");
-	     $(this).removeClass("fa-plus-square");
-	 }
-	 else {
-	     $(this).addClass("fa-plus-square");
-	     $(this).removeClass("fa-minus-square-o");
-	 }
-     });
-
-     $('.active').parents('ul').show();
-     $('.active').siblings('ul').show();
-     $('.active').children('i.toggle').removeClass("fa-plus-squre").addClass("fa-minus-square-o");
-     $('.active').parents('li').children('.toggle').removeClass("fa-plus-square").addClass("fa-minus-square-o");
- });
-
-</script>
