@@ -24,6 +24,7 @@ body {
 
 .crumbs {
     margin-bottom: 0.5rem;
+    text-align: center;
     .crumb {
 	display: inline;
     }
@@ -31,4 +32,9 @@ body {
 
 a {
     color: #444;
+}
+
+section,article {
+   margin-top: 2.5rem;
+   margin-bottom: 2.5rem;
 }
