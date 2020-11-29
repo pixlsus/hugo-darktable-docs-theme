@@ -93,7 +93,7 @@ $(document).ready(function() {
          if (query.length < 2) {
             return;
          }
-         results = search(query);
+         results = search(query + '~2');
          renderResults(results);
       });
 });
