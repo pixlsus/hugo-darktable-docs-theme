@@ -51,3 +51,18 @@ section,article {
    margin-top: 2.5rem;
    margin-bottom: 2.5rem;
 }
+
+.search-results {
+   position: absolute;
+   padding: 0.5em;
+   right: 0;
+   min-width: 20%;
+   background-color: white;
+   z-index: 1001;
+   display: none;
+}
+
+.search-results p {
+   padding: 0;
+   margin: 0;
+}
