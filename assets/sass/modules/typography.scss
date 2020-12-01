@@ -19,7 +19,8 @@ pre, code, kbd {
 }
 
 p {
-    margin-bottom: 1.15rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
 }
 
 h1, h2, h3, h4, h5 {
@@ -71,4 +72,20 @@ small, .text_small {
 
 dd, pre {
     margin-left: 20px;
+}
+
+dt {
+   margin-top: 1rem;
+}
+
+ul {
+   margin-top: 0;
+   margin-bottom: 0;
+}
+
+article ul li, 
+article ul li p, 
+dd p {
+   margin-top: 0.7rem;
+   margin-bottom: 0.7rem;
 }
