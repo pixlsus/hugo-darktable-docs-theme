@@ -89,3 +89,17 @@ dd p {
    margin-top: 0.7rem;
    margin-bottom: 0.7rem;
 }
+
+h1 a,
+h2 a,
+h3 a {
+   display: none;
+   font-size: 1.33rem;
+}
+
+h1:hover a,
+h2:hover a,
+h3:hover a
+{
+   display: inline;
+}
