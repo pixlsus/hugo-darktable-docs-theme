@@ -90,11 +90,13 @@ dd p {
    margin-bottom: 0.7rem;
 }
 
-h1 a,
-h2 a,
-h3 a {
+h1 a:link,
+h2 a:link,
+h3 a:link {
    display: none;
    font-size: 1.33rem;
+   color: dimgrey;
+   text-decoration: none;
 }
 
 h1:hover a,
