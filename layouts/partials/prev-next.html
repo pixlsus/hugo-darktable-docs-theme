@@ -16,13 +16,13 @@
 
 {{- define "pn-link" -}}{{- /* (dict "Page" .Page "CurrentPage" .CurrentPage) */ -}}
    {{- if (eq ( .CurrentPage.Scratch.Get "pcurrpagefound" ) 1) -}}
-      {{- .CurrentPage.Scratch.Set "pnextlink" .Page.Permalink -}}
+      {{- .CurrentPage.Scratch.Set "pnextlink" .Page.RelPermalink -}}
       {{- .CurrentPage.Scratch.Set "pnexttitle" .Page.Title -}}
       {{- .CurrentPage.Scratch.Set "pcurrpagefound" 2 -}}
    {{- else if eq .CurrentPage .Page -}}
       {{- .CurrentPage.Scratch.Set "pcurrpagefound" 1 -}}
    {{ else if (eq ( .CurrentPage.Scratch.Get "pcurrpagefound" ) 0) }}
-      {{- .CurrentPage.Scratch.Set "pprevlink" .Page.Permalink -}}
+      {{- .CurrentPage.Scratch.Set "pprevlink" .Page.RelPermalink -}}
       {{- .CurrentPage.Scratch.Set "pprevtitle" .Page.Title -}}
    {{- end -}}
 {{- end -}}

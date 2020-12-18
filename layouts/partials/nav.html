@@ -23,7 +23,7 @@
 
 {{ define "nav-link" }}{{/* (dict "Page" .Page "CurrentPage" .CurrentPage) */}}
 {{ $current := eq .CurrentPage .Page }}
-      <a href="{{ .Page.Permalink }}" class="{{ if $current }} active{{ end }}">
+      <a href="{{ .Page.RelPermalink }}" class="{{ if $current }} active{{ end }}">
           {{ .Page.Title }}
       </a>
 {{ end }}
