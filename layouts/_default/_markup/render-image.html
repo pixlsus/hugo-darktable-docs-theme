@@ -6,5 +6,5 @@
 {{ if hasPrefix $link "http" }}
 <img src="{{ .Destination | safeURL }}" alt="{{ .Text }}" {{ with .Title}} title="{{ . }}"{{ end }} />
 {{ else }}
-<a href="{{ .Page.Permalink }}{{ range first 1 $classSplit }}{{- . | safeURL -}}{{ end }}"><img src="{{ .Page.Permalink }}{{ range first 1 $classSplit }}{{- . | safeURL -}}{{ end }}" alt="{{ .Text }}" {{ if gt (len $classSplit) 1}} class="{{ $classes := after 1 $classSplit }}{{ delimit $classes " " }}"  {{ end }} {{ with .Title}} title="{{ . }}"{{ end }} /></a>
+<a href="{{ .Page.RelPermalink }}{{ range first 1 $classSplit }}{{- . | safeURL -}}{{ end }}"><img src="{{ .Page.RelPermalink }}{{ range first 1 $classSplit }}{{- . | safeURL -}}{{ end }}" alt="{{ .Text }}" {{ if gt (len $classSplit) 1}} class="{{ $classes := after 1 $classSplit }}{{ delimit $classes " " }}"  {{ end }} {{ with .Title}} title="{{ . }}"{{ end }} /></a>
 {{ end }}
