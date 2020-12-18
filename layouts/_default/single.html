@@ -19,7 +19,7 @@
     <h4>{{ i18n "translations" }}</h4>
     <ul>
         {{ range .Translations }}
-        <li><a href="{{ .Permalink }}">
+        <li><a href="{{ .RelPermalink }}">
             {{ .Lang }}: {{ .Title }}{{ if .IsPage }}{{ end }}
         </a></li>
         {{ end }}
