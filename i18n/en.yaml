@@ -15,3 +15,6 @@
 
 - id: current
   translation: "(Current)"
+
+- id: onThisPage
+  translation: "On This Page:"

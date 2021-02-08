@@ -3,12 +3,26 @@ body {
 }
 
 .content {
-    padding-left: 13%;
-    padding-right: 13%;
+    padding-left: 8%;
+    padding-right: 8%;
     padding-top: 1rem;
     a {
 	text-decoration: underline;
 	background-color: transparent;
+    }
+}
+
+.page-toc {
+    padding-top: 7.75rem;
+    padding-left: 7rem;
+    display: block;
+    position: sticky;
+    nav {
+	ul {
+	    list-style: none;
+	    padding-left: 0;
+
+	}
     }
 }
 

@@ -4,28 +4,39 @@
 
 
 {{ partial "breadcrumbs.html" . }}
-    
+
 {{ partial "prev-next.html" . }}
 
-<article role="main">
+<div class="row">
+    <article role="main" class="col-8">
 
-    <h1 class="title">
-        {{ .Title | markdownify }}
-    </h1>
+	<h1 class="title">
+            {{ .Title | markdownify }}
+	</h1>
 
-    {{ .Content }}
+	{{ .Content }}
 
-    {{ if .IsTranslated }}
-    <h4>{{ i18n "translations" }}</h4>
-    <ul>
-        {{ range .Translations }}
-        <li><a href="{{ .RelPermalink }}">
-            {{ .Lang }}: {{ .Title }}{{ if .IsPage }}{{ end }}
-        </a></li>
-        {{ end }}
-    </ul>
+	{{ if .IsTranslated }}
+	<h4>{{ i18n "translations" }}</h4>
+	<ul>
+            {{ range .Translations }}
+            <li><a href="{{ .RelPermalink }}">
+		{{ .Lang }}: {{ .Title }}{{ if .IsPage }}{{ end }}
+            </a></li>
+            {{ end }}
+	</ul>
+	{{ end }}
+    </article>
+    {{ if gt .WordCount 400 }}
+    <aside class="page-toc col-4">
+	<header>
+	    <b>{{ i18n "onThisPage" . }}</b>
+	</header>
+	{{.TableOfContents}}
+    </aside>
     {{ end }}
-</article>
+
+</div>
 
 {{ partial "prev-next.html" . }}
 
