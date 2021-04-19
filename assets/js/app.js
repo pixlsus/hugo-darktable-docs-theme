@@ -84,6 +84,18 @@ $(document).ready(function() {
             $("#search-results").hide();
             $("#search-input").val("");
          }
+         if(e.keyCode ==13)
+         {
+            //enter key pressed - go to first search result if it exists
+            event.preventDefault();
+
+            $hreference = $("#search-results a").first().attr('href');
+
+            if($hreference != undefined)
+            {
+               document.location.href = $hreference;
+            }
+         }
       });
 
       $("#search-input").keyup(function (e) {
