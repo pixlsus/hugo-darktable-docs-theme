@@ -16,11 +16,11 @@
     {{ .Content }}
 
     {{ if .IsTranslated }}
-    <h4>{{ i18n "translations" }}</h4>
+    <h3>{{ i18n "translations" }}</h3>
     <ul>
         {{ range .Translations }}
         <li><a href="{{ .RelPermalink }}">
-            {{ .Lang }}: {{ .Title }}{{ if .IsPage }}{{ end }}
+            {{ .Language.LanguageName }}: {{ .Title }}{{ if .IsPage }}{{ end }}
         </a></li>
         {{ end }}
     </ul>
