@@ -15,3 +15,6 @@
 
 - id: current
   translation: "(Current)"
+
+- id: table-of-contents
+  translation: "Table of Contents"

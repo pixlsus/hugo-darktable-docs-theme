@@ -4,7 +4,7 @@
 
 
 {{ partial "breadcrumbs.html" . }}
-    
+
 {{ partial "prev-next.html" . }}
 
 <article role="main">
@@ -12,6 +12,12 @@
     <h1 class="title">
         {{ .Title | markdownify }}
     </h1>
+
+    {{ if .Params.include_toc }}
+    <div class="toc">
+	{{ partial "table-of-contents.html" . }}
+    </div>
+    {{ end }}
 
     {{ .Content }}
 
