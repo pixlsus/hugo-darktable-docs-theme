@@ -111,3 +111,18 @@ h3:hover a
 {
    opacity: 1;
 }
+
+.toc ul
+{
+   list-style: none;
+   padding-left: 0;
+   margin-left: 0;
+}
+
+.toc li
+{
+   margin-top: 0;
+   margin-bottom: 0;
+   padding-left: 2em;
+   margin-left: 0;
+}
