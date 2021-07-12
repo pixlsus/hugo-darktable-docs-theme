@@ -55,12 +55,14 @@ section,article {
 .search-results {
     position: absolute;
     right: 0;
+    bottom: 0;
     min-width: 20%;
     background-color: white;
     z-index: 1001;
     display: none;
     max-width: 100%;
     width: 450px;
+    overflow-y: scroll;
 
     @extend .list-group;
     @extend .shadow;

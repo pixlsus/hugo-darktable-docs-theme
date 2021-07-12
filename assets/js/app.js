@@ -153,6 +153,9 @@ function renderResults(results) {
     });
     searchResults.appendChild(resultsFragment);
 
+    var header = document.querySelector('header.navbar');
+    $searchResults.css('top', header.clientHeight);
+    $searchResults.css('height', window.innerHeight - header.clientHeight);
     $searchResults.show();
 }
 
