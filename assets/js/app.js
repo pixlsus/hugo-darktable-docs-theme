@@ -78,7 +78,6 @@ function search(queryString, limit) {
     // Sort results by relevance
     searchResults.sort((a, b) => b.score - a.score);
 
-    console.log(searchResults);
     searchResults = searchResults.slice(0, limit);
 
     return searchResults;
@@ -135,7 +134,7 @@ function renderResults(results) {
         link.className = 'search-results__item';
         title.className = 'search-results__title';
         content.className = 'search-results__content';
-        console.log(matchedTerms);
+
         link.href = page.href;
         title.innerHTML = highlightKeyword(page.title, matchedTerms);
         content.innerHTML = highlightKeyword(
