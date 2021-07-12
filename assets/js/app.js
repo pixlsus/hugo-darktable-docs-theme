@@ -1,4 +1,12 @@
 var lunrIndex;
+var pagesIndex;
+var pagesMap = {};
+var SEARCH_RESULT_LIMIT = 20;
+var SEARCH_RESULT_EXCERPT_LENGTH = 160;
+
+function sanitizeRegex(src) {
+    return src.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
 
 // Initialize lunrjs using our generated index file
 function initLunr() {
@@ -7,106 +15,188 @@ function initLunr() {
 
     request.onload = function () {
         if (request.status >= 200 && request.status < 400) {
-
             pagesIndex = JSON.parse(request.responseText);
-            console.log("index:", pagesIndex);
+            console.log('index:', pagesIndex);
+
+            pagesIndex.forEach(function (page) {
+                pagesMap[page.href] = page;
+            });
 
             // Set up lunrjs by declaring the fields we use
             // Also provide their boost level for the ranking
             lunrIndex = lunr(function () {
-                this.field("title", {
-                    boost: 20
-                });
-                this.field("tags", {
-                    boost: 5
-                });
+                this.pipeline.remove(lunr.stemmer);
+                this.searchPipeline.remove(lunr.stemmer);
 
-                this.field("content", {
-                    boost: 1
-                });
+                this.field('title', { boost: 5 });
+                this.field('content', { boost: 2 });
+                this.field('tags', { boost: 1 });
 
                 // ref is the result item identifier (I chose the page URL)
-                this.ref("href");
-                this.add({ field: "test", text: 'hello' });
+                this.ref('href');
+                this.add({ field: 'test', text: 'hello' });
                 for (var i = 0; i < pagesIndex.length; ++i) {
                     this.add(pagesIndex[i]);
                 }
             });
         } else {
-            var err = textStatus + ", " + error;
-            console.error("Error getting Hugo index flie:", err);
+            var err = textStatus + ', ' + error;
+            console.error('Error getting Hugo index flie:', err);
         }
     };
 
     request.send();
 }
 
-function search(query) {
-    return lunrIndex.search(query).map(function (result) {
-        return pagesIndex.filter(function (page) {
-            return page.href === result.ref;
-        })[0];
+function search(queryString, limit) {
+    var queryTerms = lunr.tokenizer(queryString);
+    var searchResults = lunrIndex.query(function (query) {
+        queryTerms.forEach(function (queryTerm) {
+            // look for an exact match and apply a large positive boost
+            query.term(queryTerm, {
+                usePipeline: true,
+                boost: 100,
+            });
+
+            // look for terms that start or end with queryTerm and apply a medium boost
+            query.term(queryTerm, {
+                usePipeline: false,
+                boost: 5,
+                wildcard:
+                    lunr.Query.wildcard.LEADING | lunr.Query.wildcard.TRAILING,
+            });
+
+            // look for terms that match with an edit distance of 2 and apply a small boost
+            query.term(queryTerm, {
+                usePipeline: false,
+                editDistance: 2,
+                boost: 1,
+            });
+        });
+    });
+
+    // Sort results by relevance
+    searchResults.sort((a, b) => b.score - a.score);
+
+    console.log(searchResults);
+    searchResults = searchResults.slice(0, limit);
+
+    return searchResults;
+}
+
+function highlightKeyword(sourceText, keyword, tag) {
+    if (!tag) tag = 'mark';
+
+    return sourceText.replace(new RegExp(keyword, 'ig'), function (match) {
+        return '<' + tag + '>' + match + '</' + tag + '>';
     });
 }
 
-function renderResults(results) {
+function getTextExcerpt(text, keyword, length) {
+    if (!length) length = 80;
 
-   if (!results.length) {
-      $("#search-results").hide();
-      return;
-   }
+    var index = text.search(new RegExp(keyword, 'ig'));
+    var excerpt = text;
 
-   // Only show the first twenty results
-   $results = document.getElementById("search-results");
+    if (index === -1) excerpt = text.substring(0, length) + '...';
 
-   results.slice(0, 20).forEach(function (result) {
-      var p = document.createElement('p');
-      var ahref = document.createElement('a');
-      ahref.href = result.href;
-      ahref.text = "» " + result.title;
-      p.append(ahref);
-      $results.appendChild(p);
-   });
+    var halfLength = Math.round(length / 2);
+    var excerpt = text.substring(
+        Math.max(0, index - halfLength),
+        Math.min(text.length, index + halfLength)
+    );
 
-   $("#search-results").show();
+    if (index - halfLength > 0) excerpt = '...' + excerpt;
+    if (index + halfLength < text.length) excerpt = excerpt + '...';
+
+    return excerpt;
 }
 
-$(document).ready(function() {
-      $("#search-results").hide();
-      $("#search-input").focus(function() {
-            //load index file if it's not already been loaded
-            if (! lunrIndex) { initLunr(); }
-      });
+function renderResults(results) {
+    var searchResults = document.getElementById('search-results');
+    var $searchResults = $(searchResults);
 
-      $("#search-input").keydown(function (e) {
-         if(e.keyCode == 27)
-         {
-            $("#search-results").hide();
-            $("#search-input").val("");
-         }
-         if(e.keyCode ==13)
-         {
+    if (!results.length) {
+        $searchResults.hide();
+        return;
+    }
+
+    var resultsFragment = document.createDocumentFragment();
+    // Only show the first twenty results
+    results.forEach(function (result) {
+        var page = pagesMap[result.ref];
+        var matchedTerms = Object.keys(result.matchData.metadata)
+            .map(sanitizeRegex)
+            .join('|');
+        var link = document.createElement('a');
+        var title = document.createElement('b');
+        var content = document.createElement('small');
+
+        link.className = 'search-results__item';
+        title.className = 'search-results__title';
+        content.className = 'search-results__content';
+        console.log(matchedTerms);
+        link.href = page.href;
+        title.innerHTML = highlightKeyword(page.title, matchedTerms);
+        content.innerHTML = highlightKeyword(
+            getTextExcerpt(
+                page.content,
+                matchedTerms,
+                SEARCH_RESULT_EXCERPT_LENGTH
+            ),
+            matchedTerms
+        );
+
+        link.appendChild(title);
+        link.appendChild(content);
+
+        resultsFragment.appendChild(link);
+    });
+    searchResults.appendChild(resultsFragment);
+
+    $searchResults.show();
+}
+
+function handleSearchInput() {
+    var $searchInput = $('#search-input');
+    var $searchResults = $('#search-results');
+    var query = $searchInput.val();
+
+    //trigger a search if a search term longer than two characters has been entered
+    $searchResults.empty().hide();
+
+    if (query.length < 2) {
+        return;
+    }
+
+    renderResults(search(query, SEARCH_RESULT_LIMIT));
+}
+
+$(document).ready(function () {
+    var $searchInput = $('#search-input');
+    var $searchResults = $('#search-results');
+
+    $searchResults.hide();
+    $searchInput.focus(function () {
+        //load index file if it's not already been loaded
+        if (!lunrIndex) {
+            initLunr();
+        }
+    });
+
+    $searchInput.keydown(function (e) {
+        if (e.keyCode === 27) {
+            $searchResults.hide();
+            $searchInput.val('');
+        }
+
+        if (e.keyCode === 13) {
             //enter key pressed - go to first search result if it exists
-            event.preventDefault();
+            e.preventDefault();
 
-            $hreference = $("#search-results a").first().attr('href');
+            $('#search-results a').first().get(0).click();
+        }
+    });
 
-            if($hreference != undefined)
-            {
-               document.location.href = $hreference;
-            }
-         }
-      });
-
-      $("#search-input").keyup(function (e) {
-         //trigger a search if a search term longer than two characters has been entered
-         $("#search-results").empty().hide();
-         query = $("#search-input").val();
-         if (query.length < 2) {
-            return;
-         }
-         results = search(query + '~1');
-         renderResults(results);
-      });
+    $searchInput.on('input', handleSearchInput);
 });
-
