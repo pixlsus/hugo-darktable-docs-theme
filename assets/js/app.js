@@ -66,10 +66,10 @@ function search(queryString, limit) {
                     lunr.Query.wildcard.LEADING | lunr.Query.wildcard.TRAILING,
             });
 
-            // look for terms that match with an edit distance of 2 and apply a small boost
+            // look for terms that match with an edit distance of 1 and apply a small boost
             query.term(queryTerm, {
                 usePipeline: false,
-                editDistance: 2,
+                editDistance: 1,
                 boost: 1,
             });
         });
