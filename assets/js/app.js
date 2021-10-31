@@ -11,7 +11,7 @@ function sanitizeRegex(src) {
 // Initialize lunrjs using our generated index file
 function initLunr() {
     var request = new XMLHttpRequest();
-    request.open('GET', '{{ "index.json" | absURL }}', true);
+    request.open('GET', indexURL, true);
 
     request.onload = function () {
         if (request.status >= 200 && request.status < 400) {
