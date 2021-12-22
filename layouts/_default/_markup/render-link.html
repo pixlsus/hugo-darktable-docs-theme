@@ -1,10 +1,10 @@
-{{ $link := .Destination }}
+{{ $link := strings.Replace .Destination "_index.md" "" }}
 {{- /* This comment removes newlines. */ -}}
 {{ $isRemote := strings.HasPrefix $link "http" }}
 {{- /* This comment removes newlines. */ -}}
 {{- if not $isRemote -}}
 {{- /* This comment removes newlines. */ -}}
-{{ $url := urls.Parse .Destination }}
+{{ $url := urls.Parse $link }}
 {{- /* This comment removes newlines. */ -}}
 {{- if $url.Path -}}
 {{- /* This comment removes newlines. */ -}}
