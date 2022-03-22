@@ -14,14 +14,14 @@
 
         <div class="container-fluid">
 	    <div class="row">
-		<nav class="navigation col-sm-12 order-sm-12 col-md-3 order-md-1">
-		    {{ partial "nav.html" . }}
-		</nav>
 		<div class="content col-sm-12 order-sm-1 col-md-9 mx-md-auto order-md-12">
 		    {{ block "main" .}}
 		    <!-- This is where the page content redners -->
 		    {{ end }}
       </div>
+		<nav class="navigation col-sm-12 order-sm-12 col-md-3 order-md-1">
+		    {{ partial "nav.html" . }}
+		</nav>
 	    </div>
 
             <!-- {{ partial "page-footer.html" . }} -->
