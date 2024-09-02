@@ -1,10 +1,13 @@
 <!-- Our custom CSS -->
-{{- if .Site.IsServer -}}
-{{- $options := (dict "targetPath" "css/style.css" "outputStyle" "expanded" "enableSourceMap" true "includePaths" (slice "themes/hugo-darktable-docs-theme/assets/node_modules/bootstrap/scss" "themes/hugo-darktable-docs-theme/assets/node_modules/fork-awesome/scss")) -}}
-{{- $style := resources.Get "sass/main.scss" | resources.ToCSS $options | fingerprint -}}
-<link rel="stylesheet" href="{{ $style.RelPermalink }}">
-{{- else -}}
-{{- $options := (dict "targetPath" "css/style.css" "outputStyle" "compressed" "enableSourceMap" true "includePaths" (slice "themes/hugo-darktable-docs-theme/assets/node_modules/bootstrap/scss" "themes/hugo-darktable-docs-theme/assets/node_modules/fork-awesome/scss")) -}}
-{{- $style := resources.Get "sass/main.scss" | resources.ToCSS $options | minify | fingerprint -}}
-<link rel="stylesheet" href="{{ $style.RelPermalink }}">
-{{- end -}}
+{{ with resources.Get "sass/main.scss" }}
+    {{ $opts := dict "transpiler" "libsass" "targetPath" "css/style.css" "enableSourceMap" (not hugo.IsProduction) "enableSourceMap" true "includePaths" (slice "themes/hugo-darktable-docs-theme/assets/node_modules/bootstrap/scss" "themes/hugo-darktable-docs-theme/assets/node_modules/fork-awesome/scss") }}
+    {{ with . | css.Sass $opts }}
+	{{ if hugo.IsDevelopment }}
+	    <link rel="stylesheet" href="{{ .RelPermalink }}">
+	{{ else }}
+	    {{ with . | minify | fingerprint }}
+		<link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
+	    {{ end }}
+	{{ end }}
+    {{ end }}
+{{ end }}
