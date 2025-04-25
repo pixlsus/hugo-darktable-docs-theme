@@ -12,11 +12,8 @@
 <meta property="og:description" content="{{ trim . "\n\r\t " }}">
 {{- end }}
 
-{{- with partial "_funcs/get-page-images" . }}
-{{- range . | first 6 }}
-<meta property="og:image" content="{{ .Permalink }}">
-{{- end }}
-{{- end }}
+<meta property="og:image" content="{{ .Site.BaseURL }}/darktable.svg">
+
 
 {{- with or .Params.locale site.Language.LanguageCode }}
 <meta property="og:locale" content="{{ replace . `-` `_` }}">
